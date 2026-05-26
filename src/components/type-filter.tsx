@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { usePokemonTypes } from "@/hooks/use-pokemon-types";
 import { getTypeGradient } from "@/lib/pokemon-types";
 
@@ -9,6 +10,7 @@ interface TypeFilterProps {
 }
 
 export function TypeFilter({ selected, onChange }: TypeFilterProps) {
+  const t = useTranslations("typeFilter");
   const { data: types, isLoading } = usePokemonTypes();
 
   if (isLoading) {
@@ -27,7 +29,7 @@ export function TypeFilter({ selected, onChange }: TypeFilterProps) {
             : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300"
         }`}
       >
-        Wszystkie
+        {t("all")}
       </button>
       {types?.map((type) => (
         <button

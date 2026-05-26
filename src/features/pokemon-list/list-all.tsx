@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { keepPreviousData, useQueryClient } from "@tanstack/react-query";
 import { usePokemonList } from "@/hooks/use-pokemon-list";
 import { fetchPokemonList, fetchPokemonBasic } from "@/lib/pokemon-api";
@@ -12,6 +13,7 @@ const LIMIT = 9;
 const PREFETCH_RADIUS = 2;
 
 export function PokemonListAll() {
+  const t = useTranslations("list");
   const [page, setPage] = useState(1);
   const offset = (page - 1) * LIMIT;
   const queryClient = useQueryClient();
@@ -75,12 +77,12 @@ export function PokemonListAll() {
     }
   }, [page, totalPages, queryClient]);
 
-  if (isLoading) return <p className="text-zinc-500">Ładowanie...</p>;
-  if (isError) return <p className="text-red-500">Błąd: {error.message}</p>;
+  if (isLoading) return <p className="text-zinc-500">{t("loading")}</p>;
+  if (isError) return <p className="text-red-500">{t("error", { message: error.message })}</p>;
 
   return (
     <div>
-      <p className="mb-4 text-sm text-zinc-500">Łącznie: {data?.count} pokemonów</p>
+      <p className="mb-4 text-sm text-zinc-500">{t("total", { count: data?.count ?? 0 })}</p>
       <ul className={`grid grid-cols-3 gap-4 ${isFetching ? "opacity-60" : ""}`}>
         {data?.results.map((pokemon) => (
           <li key={pokemon.name}>

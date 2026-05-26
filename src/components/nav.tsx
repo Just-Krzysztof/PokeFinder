@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useFavoritesStore } from "@/store/favorites";
 import { useComparisonStore } from "@/store/comparison";
 
@@ -11,13 +12,14 @@ interface NavProps {
 }
 
 export function Nav({ activeView, onChange }: NavProps) {
+  const t = useTranslations("nav");
   const favoritesCount = useFavoritesStore((s) => s.favorites.length);
   const comparisonCount = useComparisonStore((s) => s.comparison.length);
 
   const tabs: { id: View; label: string; badge?: number }[] = [
-    { id: "all", label: "Wszystkie" },
-    { id: "favorites", label: "Ulubione", badge: favoritesCount },
-    { id: "comparison", label: "Porównanie", badge: comparisonCount },
+    { id: "all", label: t("all") },
+    { id: "favorites", label: t("favorites"), badge: favoritesCount },
+    { id: "comparison", label: t("comparison"), badge: comparisonCount },
   ];
 
   return (

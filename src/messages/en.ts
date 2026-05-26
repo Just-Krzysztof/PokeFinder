@@ -5,4 +5,58 @@ export const en = {
     description: 'Find the perfect brewery based on today\'s weather in your area.',
     cta: 'Find breweries',
   },
+  page: {
+    title: 'PokéFinder',
+  },
+  nav: {
+    all: 'All',
+    favorites: 'Favorites',
+    comparison: 'Comparison',
+  },
+  pokemonCard: {
+    loading: 'Loading...',
+    error: 'Error',
+    addToFavorites: 'Add to favorites',
+    removeFromFavorites: 'Remove from favorites',
+    addToComparison: 'Add to comparison',
+    removeFromComparison: 'Remove from comparison',
+    details: 'Details',
+  },
+  pokemonDetail: {
+    loading: 'Loading...',
+    error: 'Error',
+    weight: 'Weight',
+    height: 'Height',
+    abilities: 'Abilities',
+    statHp: 'HP',
+    statAttack: 'Attack',
+    statDefense: 'Defense',
+    statSpecialAttack: 'Sp. Attack',
+    statSpecialDefense: 'Sp. Defense',
+    statSpeed: 'Speed',
+  },
+  favorites: {
+    empty: 'No favorites. Click ❤️ on a Pokémon card to add.',
+  },
+  comparison: {
+    empty: 'No Pokémon to compare.',
+    selectPokemon: 'Select a Pokémon to compare',
+    removePokemon: 'Remove {name} from comparison',
+    missingSecond: 'Missing second Pokémon',
+  },
+  typeFilter: {
+    all: 'All',
+  },
+  list: {
+    loading: 'Loading...',
+    error: 'Error: {message}',
+    typeError: 'Error loading type.',
+    total: 'Total: {count} Pokémon',
+    typeTotal: '{count} Pokémon of type {type}',
+  },
+  pagination: {
+    prev: 'Previous',
+    next: 'Next',
+    pageOf: '{page} / {total}',
+  },
 }

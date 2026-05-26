@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Nav, type View } from "@/components/nav";
 import { TypeFilter } from "@/components/type-filter";
 import { PokemonList } from "@/features/pokemon-list";
@@ -10,6 +11,7 @@ import { ComparisonView } from "@/components/comparison-view";
 export default function Home() {
   const [view, setView] = useState<View>("all");
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const t = useTranslations("page");
 
   function handleViewChange(next: View) {
     setView(next);
@@ -17,7 +19,7 @@ export default function Home() {
 
   return (
     <main className="p-8">
-      <h1 className="mb-6 text-3xl font-bold">PokéFinder</h1>
+      <h1 className="mb-6 text-3xl font-bold">{t("title")}</h1>
 
       <Nav activeView={view} onChange={handleViewChange} />
 

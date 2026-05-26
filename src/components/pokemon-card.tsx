@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { usePokemonBasic } from "@/hooks/use-pokemon-basic";
 import { useFavoritesStore } from "@/store/favorites";
 import { useComparisonStore } from "@/store/comparison";
@@ -12,6 +13,7 @@ interface PokemonCardProps {
 }
 
 export function PokemonCard({ name, onDetails }: PokemonCardProps) {
+  const t = useTranslations("pokemonCard");
   const { data, isLoading, isError } = usePokemonBasic(name);
   const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
   const isFavorite = useFavoritesStore((s) => s.isFavorite(name));
@@ -21,7 +23,7 @@ export function PokemonCard({ name, onDetails }: PokemonCardProps) {
   if (isLoading) {
     return (
       <div className="flex h-40 items-center justify-center rounded-lg border bg-zinc-50 dark:bg-zinc-900">
-        <span className="text-sm text-zinc-400">Ładowanie...</span>
+        <span className="text-sm text-zinc-400">{t("loading")}</span>
       </div>
     );
   }
@@ -29,7 +31,7 @@ export function PokemonCard({ name, onDetails }: PokemonCardProps) {
   if (isError || !data) {
     return (
       <div className="flex h-40 items-center justify-center rounded-lg border border-red-200 bg-red-50">
-        <span className="text-sm text-red-400">Błąd</span>
+        <span className="text-sm text-red-400">{t("error")}</span>
       </div>
     );
   }
@@ -38,16 +40,14 @@ export function PokemonCard({ name, onDetails }: PokemonCardProps) {
     <div className="relative flex flex-col items-center gap-2 rounded-lg border p-4 hover:shadow-md transition-shadow">
       <button
         onClick={() => toggleFavorite(name)}
-        aria-label={isFavorite ? "Usuń z ulubionych" : "Dodaj do ulubionych"}
+        aria-label={isFavorite ? t("removeFromFavorites") : t("addToFavorites")}
         className="absolute top-2 right-2 text-lg leading-none cursor-pointer"
       >
         {isFavorite ? "❤️" : "🤍"}
       </button>
       <button
         onClick={() => toggleComparison(name)}
-        aria-label={
-          isInComparison ? "Usuń z porównania" : "Dodaj do porównania"
-        }
+        aria-label={isInComparison ? t("removeFromComparison") : t("addToComparison")}
         className="absolute top-2 right-10 text-lg leading-none cursor-pointer"
       >
         {isInComparison ? <ZapOff /> : <Zap />}
@@ -71,9 +71,9 @@ export function PokemonCard({ name, onDetails }: PokemonCardProps) {
       {onDetails && (
         <button
           onClick={() => onDetails(data.name)}
-          className="mt-1 text-xs text-blue-500 hover:underline"
+          className="mt-1 text-xs text-blue-500 hover:underline cursor-pointer"
         >
-          Details
+          {t("details")}
         </button>
       )}
     </div>

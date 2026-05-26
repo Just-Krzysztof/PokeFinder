@@ -1,16 +1,16 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useFavoritesStore } from "@/store/favorites";
 import { PokemonCard } from "@/components/pokemon-card";
 
 export function FavoritesView() {
+  const t = useTranslations("favorites");
   const favorites = useFavoritesStore((s) => s.favorites);
 
   if (favorites.length === 0) {
     return (
-      <p className="text-zinc-500 text-sm">
-        Brak ulubionych. Kliknij ❤️ na karcie pokémona, aby dodać.
-      </p>
+      <p className="text-zinc-500 text-sm">{t("empty")}</p>
     );
   }
 

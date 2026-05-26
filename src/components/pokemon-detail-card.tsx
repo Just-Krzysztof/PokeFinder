@@ -1,28 +1,21 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { usePokemonDetails } from "@/hooks/use-pokemon-details";
 import { getTypeGradient } from "@/lib/pokemon-types";
-// TODO translations
-const STAT_LABELS: Record<string, string> = {
-  hp: "HP",
-  attack: "Atak",
-  defense: "Obrona",
-  "special-attack": "Sp. Atak",
-  "special-defense": "Sp. Obrona",
-  speed: "Szybkość",
-};
 
 interface PokemonDetailCardProps {
   name: string;
 }
 
 export function PokemonDetailCard({ name }: PokemonDetailCardProps) {
+  const t = useTranslations("pokemonDetail");
   const { data, isLoading, isError } = usePokemonDetails(name);
 
   if (isLoading) {
     return (
       <div className="flex h-80 items-center justify-center rounded-xl border bg-zinc-50 dark:bg-zinc-900">
-        <span className="text-sm text-zinc-400">Ładowanie...</span>
+        <span className="text-sm text-zinc-400">{t("loading")}</span>
       </div>
     );
   }
@@ -30,10 +23,19 @@ export function PokemonDetailCard({ name }: PokemonDetailCardProps) {
   if (isError || !data) {
     return (
       <div className="flex h-80 items-center justify-center rounded-xl border border-red-200 bg-red-50">
-        <span className="text-sm text-red-400">Błąd</span>
+        <span className="text-sm text-red-400">{t("error")}</span>
       </div>
     );
   }
+
+  const STAT_LABELS: Record<string, string> = {
+    hp: t("statHp"),
+    attack: t("statAttack"),
+    defense: t("statDefense"),
+    "special-attack": t("statSpecialAttack"),
+    "special-defense": t("statSpecialDefense"),
+    speed: t("statSpeed"),
+  };
 
   return (
     <div className="flex flex-col items-center gap-3 rounded-xl border p-6">
@@ -57,13 +59,13 @@ export function PokemonDetailCard({ name }: PokemonDetailCardProps) {
 
       <div className="w-full text-sm text-zinc-500 flex justify-center gap-6">
         <span>
-          Waga:{" "}
+          {t("weight")}:{" "}
           <strong className="text-zinc-800 dark:text-zinc-200">
             {(data.weight / 10).toFixed(1)} kg
           </strong>
         </span>
         <span>
-          Wzrost:{" "}
+          {t("height")}:{" "}
           <strong className="text-zinc-800 dark:text-zinc-200">
             {(data.height / 10).toFixed(1)} m
           </strong>
@@ -72,7 +74,7 @@ export function PokemonDetailCard({ name }: PokemonDetailCardProps) {
 
       {data.abilities.length > 0 && (
         <p className="text-xs text-zinc-500 capitalize">
-          Zdolności: {data.abilities.join(", ")}
+          {t("abilities")}: {data.abilities.join(", ")}
         </p>
       )}
 

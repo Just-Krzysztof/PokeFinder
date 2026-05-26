@@ -7,4 +7,58 @@ export const pl: typeof en = {
     description: 'Znajdź idealne miejsce na piwo na podstawie dzisiejszej pogody w Twojej okolicy.',
     cta: 'Znajdź browary',
   },
+  page: {
+    title: 'PokéFinder',
+  },
+  nav: {
+    all: 'Wszystkie',
+    favorites: 'Ulubione',
+    comparison: 'Porównanie',
+  },
+  pokemonCard: {
+    loading: 'Ładowanie...',
+    error: 'Błąd',
+    addToFavorites: 'Dodaj do ulubionych',
+    removeFromFavorites: 'Usuń z ulubionych',
+    addToComparison: 'Dodaj do porównania',
+    removeFromComparison: 'Usuń z porównania',
+    details: 'Szczegóły',
+  },
+  pokemonDetail: {
+    loading: 'Ładowanie...',
+    error: 'Błąd',
+    weight: 'Waga',
+    height: 'Wzrost',
+    abilities: 'Zdolności',
+    statHp: 'HP',
+    statAttack: 'Atak',
+    statDefense: 'Obrona',
+    statSpecialAttack: 'Sp. Atak',
+    statSpecialDefense: 'Sp. Obrona',
+    statSpeed: 'Szybkość',
+  },
+  favorites: {
+    empty: 'Brak ulubionych. Kliknij ❤️ na karcie pokémona, aby dodać.',
+  },
+  comparison: {
+    empty: 'Brak pokémonów do porównania.',
+    selectPokemon: 'Wybierz pokémona do porównania',
+    removePokemon: 'Usuń {name} z porównania',
+    missingSecond: 'Brakuje drugiego pokémona',
+  },
+  typeFilter: {
+    all: 'Wszystkie',
+  },
+  list: {
+    loading: 'Ładowanie...',
+    error: 'Błąd: {message}',
+    typeError: 'Błąd ładowania typu.',
+    total: 'Łącznie: {count} pokémonów',
+    typeTotal: '{count} pokémonów typu {type}',
+  },
+  pagination: {
+    prev: 'Poprzednia',
+    next: 'Następna',
+    pageOf: '{page} / {total}',
+  },
 } as const
