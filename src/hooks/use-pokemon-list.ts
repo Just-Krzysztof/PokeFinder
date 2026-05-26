@@ -1,12 +1,21 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
 import { fetchPokemonList } from "@/lib/pokemon-api";
-import type { PokemonListParams } from "@/types/pokemon";
+import type { PokemonListParams, PokemonListResponse } from "@/types/pokemon";
 
-export function usePokemonList(params: PokemonListParams = {}) {
+type ExtraOptions = Omit<
+  UseQueryOptions<PokemonListResponse>,
+  "queryKey" | "queryFn"
+>;
+
+export function usePokemonList(
+  params: PokemonListParams = {},
+  options?: ExtraOptions
+) {
   return useQuery({
     queryKey: ["pokemon-list", params],
     queryFn: () => fetchPokemonList(params),
+    ...options,
   });
 }
