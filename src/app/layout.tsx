@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { LanguageSwitcher } from "@/components/languageSwitcher";
 import { QueryProvider } from "@/providers/query-provider";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -40,6 +41,7 @@ export default async function RootLayout({
               <LanguageSwitcher />
             </header>
             {children}
+            <Toaster richColors />
           </NextIntlClientProvider>
         </QueryProvider>
       </body>

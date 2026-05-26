@@ -1,6 +1,9 @@
 "use client";
 
 import { usePokemonBasic } from "@/hooks/use-pokemon-basic";
+import { useFavoritesStore } from "@/store/favorites";
+import { useComparisonStore } from "@/store/comparison";
+import { Zap, ZapOff } from "lucide-react";
 
 interface PokemonCardProps {
   name: string;
@@ -9,6 +12,10 @@ interface PokemonCardProps {
 
 export function PokemonCard({ name, onDetails }: PokemonCardProps) {
   const { data, isLoading, isError } = usePokemonBasic(name);
+  const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
+  const isFavorite = useFavoritesStore((s) => s.isFavorite(name));
+  const toggleComparison = useComparisonStore((s) => s.toggleComparison);
+  const isInComparison = useComparisonStore((s) => s.isInComparison(name));
 
   if (isLoading) {
     return (
@@ -27,7 +34,23 @@ export function PokemonCard({ name, onDetails }: PokemonCardProps) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-2 rounded-lg border p-4 hover:shadow-md transition-shadow">
+    <div className="relative flex flex-col items-center gap-2 rounded-lg border p-4 hover:shadow-md transition-shadow">
+      <button
+        onClick={() => toggleFavorite(name)}
+        aria-label={isFavorite ? "Usuń z ulubionych" : "Dodaj do ulubionych"}
+        className="absolute top-2 right-2 text-lg leading-none cursor-pointer"
+      >
+        {isFavorite ? "❤️" : "🤍"}
+      </button>
+      <button
+        onClick={() => toggleComparison(name)}
+        aria-label={
+          isInComparison ? "Usuń z porównania" : "Dodaj do porównania"
+        }
+        className="absolute top-2 right-10 text-lg leading-none cursor-pointer"
+      >
+        {isInComparison ? <ZapOff /> : <Zap />}
+      </button>
       {data.spriteUrl && (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={data.spriteUrl} alt={data.name} width={96} height={96} />
