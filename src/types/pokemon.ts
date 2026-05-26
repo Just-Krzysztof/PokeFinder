@@ -38,3 +38,33 @@ export interface PokemonBasic {
   spriteUrl: string | null;
   types: string[];
 }
+
+export interface PokemonStat {
+  name: string;
+  value: number;
+}
+
+export interface PokemonDetails extends PokemonBasic {
+  height: number;
+  weight: number;
+  stats: PokemonStat[];
+  abilities: string[];
+}
+
+export interface PokemonTypeInfo {
+  name: string;
+  url: string;
+}
+
+export interface PokemonTypesResponse {
+  results: PokemonTypeInfo[];
+}
+
+export interface PokemonByTypeEntry {
+  pokemon: { name: string; url: string };
+  slot: number;
+}
+
+export interface PokemonByTypeResponse {
+  pokemon: PokemonByTypeEntry[];
+}

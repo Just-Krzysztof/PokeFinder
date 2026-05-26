@@ -4,6 +4,7 @@ import { usePokemonBasic } from "@/hooks/use-pokemon-basic";
 import { useFavoritesStore } from "@/store/favorites";
 import { useComparisonStore } from "@/store/comparison";
 import { Zap, ZapOff } from "lucide-react";
+import { getTypeGradient } from "@/lib/pokemon-types";
 
 interface PokemonCardProps {
   name: string;
@@ -61,7 +62,7 @@ export function PokemonCard({ name, onDetails }: PokemonCardProps) {
         {data.types.map((type) => (
           <span
             key={type}
-            className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs capitalize dark:bg-zinc-800"
+            className={`rounded-full px-2 py-0.5 text-xs capitalize text-black font-bold ${getTypeGradient(type)}`}
           >
             {type}
           </span>

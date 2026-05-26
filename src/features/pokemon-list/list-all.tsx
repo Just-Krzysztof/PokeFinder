@@ -5,12 +5,13 @@ import { keepPreviousData, useQueryClient } from "@tanstack/react-query";
 import { usePokemonList } from "@/hooks/use-pokemon-list";
 import { fetchPokemonList, fetchPokemonBasic } from "@/lib/pokemon-api";
 import { PokemonCard } from "@/components/pokemon-card";
+import { Pagination } from "./pagination";
 import type { PokemonListResponse } from "@/types/pokemon";
 
 const LIMIT = 9;
 const PREFETCH_RADIUS = 2;
 
-export function PokemonList() {
+export function PokemonListAll() {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * LIMIT;
   const queryClient = useQueryClient();
@@ -53,7 +54,6 @@ export function PokemonList() {
       void prefetchPage(target);
     }
 
-    // czyszczenie danych ktore są dlaej niż 2 w przod i 2 w tył
     const cachedLists = queryClient.getQueriesData<PokemonListResponse>({
       queryKey: ["pokemon-list"],
     });
@@ -80,41 +80,20 @@ export function PokemonList() {
 
   return (
     <div>
-      <p className="mb-4 text-sm text-zinc-500">
-        Łącznie: {data?.count} pokemonów
-      </p>
-
-      <ul
-        className={`grid grid-cols-3 gap-4 ${isFetching ? "opacity-60" : ""}`}
-      >
+      <p className="mb-4 text-sm text-zinc-500">Łącznie: {data?.count} pokemonów</p>
+      <ul className={`grid grid-cols-3 gap-4 ${isFetching ? "opacity-60" : ""}`}>
         {data?.results.map((pokemon) => (
           <li key={pokemon.name}>
             <PokemonCard name={pokemon.name} />
           </li>
         ))}
       </ul>
-
-      <div className="mt-6 flex items-center justify-center gap-4">
-        <button
-          onClick={() => setPage((p) => p - 1)}
-          disabled={page === 1}
-          className="rounded-lg border px-4 py-2 text-sm disabled:opacity-40 hover:bg-zinc-50 dark:hover:bg-zinc-800"
-        >
-          prev
-        </button>
-
-        <span className="text-sm text-zinc-500">
-          {page} / {totalPages}
-        </span>
-
-        <button
-          onClick={() => setPage((p) => p + 1)}
-          disabled={page === totalPages}
-          className="rounded-lg border px-4 py-2 text-sm disabled:opacity-40 hover:bg-zinc-50 dark:hover:bg-zinc-800"
-        >
-          next
-        </button>
-      </div>
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        onPrev={() => setPage((p) => p - 1)}
+        onNext={() => setPage((p) => p + 1)}
+      />
     </div>
   );
 }

@@ -1,0 +1,26 @@
+"use client";
+
+import { useFavoritesStore } from "@/store/favorites";
+import { PokemonCard } from "@/components/pokemon-card";
+
+export function FavoritesView() {
+  const favorites = useFavoritesStore((s) => s.favorites);
+
+  if (favorites.length === 0) {
+    return (
+      <p className="text-zinc-500 text-sm">
+        Brak ulubionych. Kliknij ❤️ na karcie pokémona, aby dodać.
+      </p>
+    );
+  }
+
+  return (
+    <ul className="grid grid-cols-3 gap-4">
+      {favorites.map((name) => (
+        <li key={name}>
+          <PokemonCard name={name} />
+        </li>
+      ))}
+    </ul>
+  );
+}

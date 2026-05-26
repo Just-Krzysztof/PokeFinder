@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PokeFinder",
-  description: "Chose your favorite pokemon and find out more about it!",
+  title: "PokéFinder",
+  description: "Chose your favorite pokémon and find out more about it!",
 };
 
 export default async function RootLayout({
